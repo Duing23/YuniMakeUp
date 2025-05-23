@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <title>Yuni Make Up</title>
+    <link rel="icon" href="img/y.png" type="image/png" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap"
+      rel="stylesheet"
+    />
+
+     <meta http-equiv="X-Content-Type-Options" content="nosniff">
+     <meta http-equiv="X-Frame-Options" content="DENY">
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Playfair Display", serif;
+        background: linear-gradient(135deg, #f8f1e9, #f1e3d3);
+        color: #333;
+        scroll-behavior: smooth;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0.5em 2em; /* <= Kurangi padding supaya lebih ke atas */
+        background: rgba(255, 255, 255, 0.8); /* <= Transparansi lebih tinggi */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(6px);
+      }
+
+      header img {
+        height: 48px; /* <= sedikit lebih kecil agar tidak makan tempat */
+        margin-right: 1em;
+      }
+
+      section#about {
+        scroll-margin-top: 100px; /* <= supaya scroll berhenti di bawah header */
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 1.8em;
+        color: #5c4033;
+      }
+
+      .hero {
+        width: 100%;
+        height: auto;
+        display: block;
+        animation: fadeIn 2s ease-in-out forwards;
+        opacity: 0;
+      }
+      .hero-image {
+        position: relative;
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+      }
+
+      .hero-image img {
+        width: 100%;
+        display: block;
+        border-radius: 0;
+      }
+
+      .light-sweep {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0) 0%,
+          rgba(255, 255, 255, 0.4) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        transform: skewX(-25deg);
+        animation: sweep 3s ease-in-out infinite;
+      }
+
+      @keyframes sweep {
+        0% {
+          left: -75%;
+        }
+        60% {
+          left: 125%;
+        }
+        100% {
+          left: 125%;
+        }
+      }
+
+      @keyframes fadeIn {
+        to {
+          opacity: 1;
+        }
+      }
+
+      section {
+        padding: 3em 2em;
+        background: #fff8f1;
+        box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.03);
+      }
+
+      .section-title {
+        font-size: 2em;
+        margin-bottom: 0.5em;
+        text-align: center;
+        color: #5c4033;
+      }
+
+      .content-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 2em;
+        margin-top: 2em;
+      }
+
+      .card {
+        background: #fff;
+        padding: 1em;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        max-width: 300px;
+        transform: translateY(40px);
+        opacity: 0;
+        transition: all 0.6s ease-out;
+      }
+
+      .card img {
+        width: 100%;
+        border-radius: 10px;
+        transition: transform 0.4s ease;
+      }
+
+      .card h3 {
+        text-align: center;
+        margin-top: 0.8em;
+        color: #55423d;
+      }
+
+      .card:hover img {
+        transform: scale(1.05);
+      }
+
+      .fade-up {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+
+      .fade-in {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+
+      .visible {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+
+      .contact {
+        background-color: #e6d4c3;
+        padding: 2em;
+        text-align: center;
+        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+      }
+      
+      .contact img {
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.contact a {
+  text-decoration: none;
+  color: #5c4033;
+  font-weight: bold;
+}
+.contact a:hover {
+  color: #a0522d;
+}
+
+
+      .contact h2 {
+        font-size: 1.8em;
+      }
+
+      .contact p,
+      .contact a {
+        margin: 0.5em 0;
+        color: #333;
+      }
+
+      footer {
+        background: #333;
+        color: #fff;
+        text-align: center;
+        padding: 1em;
+      }
+
+      nav {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99;
+      }
+
+      nav a {
+        display: block;
+        margin: 5px 0;
+        text-decoration: none;
+        background: #d97878;
+        color: #fff;
+        padding: 0.5em 1em;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        font-weight: bold;
+        transition: background 0.3s, transform 0.3s;
+      }
+
+      nav a:hover {
+        background: #b95252;
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 600px) {
+        .content-grid {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        header {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        header h1 {
+          margin-top: 0.5em;
+          font-size: 1.4em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <img src="img/y.png" alt="YS Salon Logo" />
+      <h1>YUNI MAKE UP</h1>
+    </header>
+
+    <div class="hero-image">
+      <img src="latar/Latar.png" alt="YS Salon Hero" />
+      <div class="light-sweep"></div>
+    </div>
+
+    <section>
+      <p class="fade-in" style="text-align: center; font-size: 1.2em">
+        Percayakan momen spesial Anda pada Yuni Make Up — solusi lengkap untuk
+        kecantikan, dekorasi, make up, dan hiburan dengan pelayanan yang ramah
+        dan menyenangkan.
+      </p>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title fade-in">Dekorasi</h2>
+      <div class="content-grid">
+        <div class="card fade-up">
+          <img src="img/Dekorasi pengantin.png" alt="Pengantin" />
+          <h3>Pengantin</h3>
+        </div>
+        <div class="card fade-up">
+          <img src="img/Dekorasi lamaran.png" alt="Lamaran" />
+          <h3>Lamaran</h3>
+        </div>
+        <div class="card fade-up">
+          <img src="img/Dekorasi hakikah.png" alt="Aqiqah" />
+          <h3>Aqiqah</h3>
+        </div>
+        <div class="card fade-up">
+          <img src="img/penamatan.png" alt="Penamatan" />
+          <h3>Penamatan</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="makeup">
+      <h2 class="section-title fade-in">Make Up</h2>
+      <div class="content-grid">
+        <div class="card fade-up">
+          <img src="img/pengantin.png" alt="Pengantin" />
+          <h3>Pengantin</h3>
+        </div>
+        <div class="card fade-up">
+          <img src="img/party.png" alt="Party" />
+          <h3>Party</h3>
+        </div>
+        <div class="card fade-up">
+          <img src="img/Lamaran.png" alt="Lamaran" />
+          <h3>Lamaran</h3>
+        </div>
+        <div class="card fade-up">
+          <img src="img/wisuda.png" alt="Wisuda" />
+          <h3>Wisuda</h3>
+        </div>
+        <div class="card fade-up">
+          <img src="img/qasidah.png" alt="Qasidah" />
+          <h3>Qasidah</h3>
+        </div>
+        <div class="card fade-up">
+          <img src="img/tari.png" alt="Tari" />
+          <h3>Tari</h3>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title fade-in">Layanan Hiburan</h2>
+      <p class="fade-in" style="text-align: center">
+        Tersedia juga music karaoke Cayya-Cayya dan Electone untuk meriahkan
+        acara Anda.
+      </p>
+    </section>
+
+    <section class="contact" id="contact">
+  <h2 class="fade-in">Hubungi Kami</h2>
+  <p>
+    <img src="imgIcon/whatsapp.svg" alt="WhatsApp" style="height: 20px; vertical-align: middle;" />
+    <a href="https://wa.me/085229569754">085229569754</a>
+  </p>
+  <p>
+    <img src="imgIcon/facebook.svg" alt="Facebook" style="height: 20px; vertical-align: middle;" />
+    <a href="https://www.facebook.com/share/16BkdnyN7z/?mibextid=wwXIfr" target="_blank">
+      Yuni Make Up
+    </a>
+  </p>
+  <p>
+    <img src="imgIcon/facebook.svg" alt="TikTok" style="height: 20px; vertical-align: middle;" />
+    <a href="https://www.tiktok.com/@wahyuni1524?_t=ZS-8wW7ZFfDHHe&_r=1" target="_blank">
+      @yWahyuni
+    </a>
+  </p>
+  <p>
+    <img src="imgIcon/house.svg" alt="Alamat" style="height: 20px; vertical-align: middle;" />
+    Alamat: Jl. Dusun Rante Limbong
+  </p>
+</section>
+
+
+    <footer>
+      <p>Terima kasih atas kunjungan Anda ke website ini..</p>
+    </footer>
+
+    <nav>
+      <a href="#about">Dekorasi</a>
+      <a href="#makeup">Make Up</a>
+      <a href="#contact">Kontak</a>
+    </nav>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+
+      document.querySelectorAll(".fade-in, .fade-up, .card").forEach((el) => {
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>
